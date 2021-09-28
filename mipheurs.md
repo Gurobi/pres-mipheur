@@ -23,7 +23,7 @@ jupyter:
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "fragment"} -->
-- Q: How do you get this presentation?
+- Q: How do you get a copy of the presentation and code?
 - A: Stay tuned until the end!
 <!-- #endregion -->
 
@@ -81,7 +81,7 @@ Example:
 <img src="img/tour.png" width="80%">
 <!-- #endregion -->
 
-<!-- #region rise={"height": "80%", "width": "80%"} slideshow={"slide_type": "slide"} tags=[] -->
+<!-- #region rise={"height": "80%", "width": "80%"} slideshow={"slide_type": "slide"} tags=[] jp-MarkdownHeadingCollapsed=true -->
 ## Standard MIP model for symmetric TSP
 
 - Let $d_{ij}$ be the distance between nodes $i$ and $j$
@@ -91,7 +91,7 @@ $$
 \begin{align}
 \min \sum_{i,j} d_{ij} x_{ij} \\
 \sum_{j} x_{ij} & = 2 & \forall i \quad (1) \\
-\sum_{i,j \in S} x_{ij} & \le |S|-1 & \forall S \subset N, 2 \le |S| \le |N|-2 \quad (2) \\
+\sum_{i,j \in S : i<j} x_{ij} & \le |S|-1 & \forall S \subset N, 2 \le |S| \le |N|-2 \quad (2) \\
 x_{ij} & = x_{ji} & \forall i,j \quad (3) 
 \end{align}
 $$
@@ -394,6 +394,16 @@ A dictionary and a function to collect runtimes
 runtimes = {'methods': [], 'optimal': [], 'firstsol': []}
 
 def addruntimes(runtimes, method, model):
+
+    # remove old copy, if one exists
+    try:
+        i = runtimes['methods'].index(method)
+        for rt in runtimes.values():
+            rt.pop(i)
+    except ValueError:
+        pass
+
+    # add new value
     runtimes['methods'].append(method)
     runtimes['optimal'].append(model.Runtime)
     try:
