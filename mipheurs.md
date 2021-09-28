@@ -767,11 +767,19 @@ m.optimize(tspcb(patchcb))
 checksol(m, plot=False)
 ```
 
-<!-- #region slideshow={"slide_type": "slide"} -->
-## Other applications of custom MIP heuristics
+## Models that are likely to benefit from custom MIP heuristics
+- Where it is difficult to find integer solutions via the LP relaxation
+- Where it is easy to construct or improve an integer solution
 
-- Models that are unlikely to benefit
-  - Knapsack: Already covered by general MIP rounding heuristics
+
+## Models that are unlikely to benefit from custom heuristics
+- Where it is easy to find integer solutions
+- Where default MIP heuristics perform well
+    - Ex: knapsack problems
+
+<!-- #region slideshow={"slide_type": "slide"} -->
+## Example models that are likely to benefit from custom MIP heuristics
+
 - Models with some possibility
   - Set covering/packing: Can you do better than general MIP rounding?
 - Promising models with disjunctive constraints
